@@ -2,6 +2,7 @@ package main
 
 import (
 	queue "data-structures-golang-com/m/v2/Queue"
+	"data-structures-golang-com/m/v2/bst"
 	"data-structures-golang-com/m/v2/graph"
 	hashmap "data-structures-golang-com/m/v2/hashMap"
 	linkedlist "data-structures-golang-com/m/v2/linkedList"
@@ -120,4 +121,38 @@ func main() {
 
 	fmt.Println("\nBFS:")
 	g.BFS(1)
+
+	fmt.Println("======== Trees / BST =========")
+	tree := &bst.BST{}
+
+	// Insertar elementos
+	tree.Insert(50)
+	tree.Insert(30)
+	tree.Insert(70)
+	tree.Insert(20)
+	tree.Insert(40)
+	tree.Insert(60)
+	tree.Insert(80)
+
+	fmt.Print("InOrder traversal: ")
+	tree.InOrder() // Debería imprimir: 20 30 40 50 60 70 80
+
+	// Buscar elementos
+	fmt.Println("Buscar 40:", tree.Search(40))   // true
+	fmt.Println("Buscar 100:", tree.Search(100)) // false
+
+	// Eliminar hoja
+	tree.Delete(20)
+	fmt.Print("Después de eliminar 20: ")
+	tree.InOrder() // 30 40 50 60 70 80
+
+	// Eliminar nodo con un hijo
+	tree.Delete(30)
+	fmt.Print("Después de eliminar 30: ")
+	tree.InOrder() // 40 50 60 70 80
+
+	// Eliminar nodo con dos hijos
+	tree.Delete(50)
+	fmt.Print("Después de eliminar 50: ")
+	tree.InOrder() // 40 60 70 80
 }

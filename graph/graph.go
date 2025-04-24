@@ -38,7 +38,7 @@ func (g *Graph) RemoveNode(value int) {
 	if node, exists := g.nodes[value]; exists {
 		// Eliminar el nodo de las listas de adyacencia de otros
 		for _, neighbor := range node.adjacent {
-			delete(neighbor.adjacent, value) // elima el edge que va del vecino al nodo padre (porque vamos a borrar el nodo padre)
+			delete(neighbor.adjacent, value) // elimina el edge que va del vecino al nodo padre (porque vamos a borrar el nodo padre)
 		}
 		delete(g.nodes, value)
 	}
