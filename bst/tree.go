@@ -80,13 +80,21 @@ func deleteNode(node *Node, value int) *Node {
 		// 		/
 		// 	  45
 
-		if node.Left == nil {
-			return node.Right
+		if node.Left == nil && node.Right != nil {
+			rightChild := node.Right
+			node.Value = rightChild.Value
+			node.Left = rightChild.Left
+			node.Right = rightChild.Right
+			return node
 		}
 
 		// Caso 2: sin hijo derecho → reemplazar con izquierdo
-		if node.Right == nil {
-			return node.Left
+		if node.Right == nil && node.Left != nil {
+			leftChild := node.Left
+			node.Value = leftChild.Value
+			node.Left = leftChild.Left
+			node.Right = leftChild.Right
+			return node
 		}
 
 		// Caso 3: tiene dos hijos
@@ -104,11 +112,13 @@ func deleteNode(node *Node, value int) *Node {
 		//                 \
 		//                 80
 		// 👉 buscar el menor valor en el subárbol derecho
-		min := findMin(node.Right)
-		// Reemplazar el valor del nodo con ese valor mínimo
-		node.Value = min.Value
-		// Eliminar el nodo duplicado (ya lo movimos arriba)
-		node.Right = deleteNode(node.Right, min.Value)
+		if node.Right != nil && node.Left != nil {
+			min := findMin(node.Right)
+			// Reemplazar el valor del nodo con ese valor mínimo
+			node.Value = min.Value
+			// Eliminar el nodo duplicado (ya lo movimos arriba)
+			node.Right = deleteNode(node.Right, min.Value)
+		}
 	}
 	return node
 }
