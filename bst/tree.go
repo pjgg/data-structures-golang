@@ -125,7 +125,7 @@ func deleteNode(node *Node, value int) *Node {
 
 func findMin(node *Node) *Node {
 	for node.Left != nil {
-		node = node.Left
+		node = findMin(node.Left)
 	}
 	return node
 }
